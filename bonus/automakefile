@@ -1,0 +1,467 @@
+##
+## EPITECH PROJECT, 2021
+## B-SYN-200-REN-2-1-automakefile-theo.guguen
+## File description:
+## automakefile
+##
+
+#!/bin/bash
+#------------------------------------CHECK------------------------------------#
+
+function is_void()
+{
+	if test -z $1
+	then
+		rm -f Makefile
+		exit 84
+	fi
+}
+
+#------------------------------------HEAD-------------------------------------#
+
+function header()
+{
+	echo -e "##" > Makefile
+	echo -e "## EPITECH PROJECT, 2021" >> Makefile
+	echo -e "## $1" >> Makefile
+	echo -e "## File description:" >> Makefile
+	echo -e "## Makefile auto-created by automakefile" >> Makefile
+	echo -e "##\n" >> Makefile
+}
+
+#------------------------------------VARS-------------------------------------#
+
+function version()
+{
+	echo -e "VERSION\t=\t1\n" >> Makefile
+}
+
+function src_dir()
+{
+	echo -e "SRCDIR\t=\t$1/\n" >> Makefile
+}
+
+function src()
+{
+	echo -e 'SRC\t=\t$(SRCDIR)'$1'\t\' >> Makefile
+}
+
+function obj()
+{
+	echo -e 'OBJ\t=\t$(SRC:.c=.o)\n' >> Makefile
+}
+
+function name()
+{
+	if test -z $1
+	then
+		echo -e "NAME\t=\ta.out\n" >> Makefile
+	else
+		echo -e "NAME\t=\t$1\n" >> Makefile
+	fi
+}
+
+function c_flags()
+{
+	if [ $1 == 3 ]
+	then
+		return
+	elif [ $1 == 0 ]
+	then
+		echo -e "CFLAGS\t=\t$2 -I $3/\n" >> Makefile
+	elif [ $1 == 1 ]
+	then
+		echo -e "CFLAGS\t=\t-I $2/\n" >> Makefile
+	else
+		echo -e "CFLAGS\t=\t$2\n" >> Makefile
+	fi
+}
+
+function ld_flags()
+{
+	if test -z $1
+	then
+		return
+	else
+		echo -e "LDFLAGS\t=\t$1\n" >> Makefile
+	fi
+}
+
+function compil()
+{
+	if test -z $1
+	then
+		echo -e "CC\t=\tgcc\n" >> Makefile
+	else
+		echo -e "CC\t=\t$1\n" >> Makefile
+	fi
+}
+
+function lb_dir()
+{
+	echo -e "LIB_DIR\t=\t$1/\n" >> Makefile
+}
+
+function bk_dir()
+{
+	echo -e "BCK_DIR\t=\t$1/\n" >> Makefile
+}
+
+function zip()
+{
+	echo -e "ZIP\t=\t$1\n" >> Makefile
+}
+
+function zipfl()
+{
+	echo -e "ZIPFLAGS\t=\t$1\n" >> Makefile
+}
+
+function unzip()
+{
+	echo -e "UNZIP\t=\t$1\n" >> Makefile
+}
+function unzipfl()
+{
+	echo -e "UNZIPFLAGS\t=\t$1\n" >> Makefile
+}
+#------------------------------------RULES------------------------------------#
+function all()
+{
+	echo -e 'all:\t$(NAME)\n' >> Makefile
+}
+
+function name_rule()
+{
+	echo -e '$(NAME):\t$(OBJ)' >> Makefile
+    echo -e "\t@printf '\033[0;33m'" >> Makefile
+	echo -e '\t@echo "                                                                        "' >> Makefile
+	echo -e '\t@echo "                                                                        "' >> Makefile
+	echo -e '\t@echo "   _____ ____  __  __ _____ _____ _      _____ _   _  _____             "' >> Makefile
+	echo -e '\t@echo "  / ____/ __ \|  \/  |  __ \_   _| |    |_   _| \ | |/ ____|            "' >> Makefile
+	echo -e '\t@echo " | |   | |  | | \  / | |__) || | | |      | | |  \| | |  __             "' >> Makefile
+	echo -e '\t@echo " | |   | |  | | |\/| |  ___/ | | | |      | | | .   | | |_ |            "' >> Makefile
+	echo -e '\t@echo " | |___| |__| | |  | | |    _| |_| |____ _| |_| |\  | |__| |  _   _   _ "' >> Makefile
+	echo -e '\t@echo "  \_____\____/|_|  |_|_|   |_____|______|_____|_| \_|\_____| (_) (_) (_)"' >> Makefile
+	echo -e '\t@echo "                                                                        "' >> Makefile
+	echo -e '\t@echo "                                                                        "' >> Makefile
+	echo -e "\t@sleep 2" >> Makefile
+	echo -e "\t@printf '\033[8m'" >> Makefile
+	echo -e '\t@$(CC) -o $(NAME) $(OBJ) $(CFLAGS) $(LDFLAGS) -L $(LIB_DIR)\n' >> Makefile
+    echo -e "\t@printf '\033[0;36m'" >> Makefile
+	echo -e '\t@echo "Files correctly compiled !"\n' >> Makefile
+}
+
+function clean_rule()
+{
+	echo -e "clean:" >> Makefile
+    echo -e "\t@printf '\033[0;31m'" >> Makefile
+	echo -e '\t@echo "                                                                     "' >> Makefile
+	echo -e '\t@echo "                                                                     "' >> Makefile
+	echo -e '\t@echo "   _____ _      ______          _   _ _____ _   _  _____             "' >> Makefile
+	echo -e '\t@echo "  / ____| |    |  ____|   /\   | \ | |_   _| \ | |/ ____|            "' >> Makefile
+	echo -e '\t@echo " | |    | |    | |__     /  \  |  \| | | | |  \| | |  __             "' >> Makefile
+	echo -e '\t@echo " | |    | |    |  __|   / /\ \ | .   | | | | .   | | |_ |            "' >> Makefile
+	echo -e '\t@echo " | |____| |____| |____ / ____ \| |\  |_| |_| |\  | |__| |  _   _   _ "' >> Makefile
+	echo -e '\t@echo "  \_____|______|______/_/    \_\_| \_|_____|_| \_|\_____| (_) (_) (_)"' >> Makefile
+	echo -e '\t@echo "                                                                     "' >> Makefile
+	echo -e '\t@echo "                                                                     "' >> Makefile
+	echo -e "\t@sleep 2" >> Makefile
+	echo -e "\t@printf '\033[8m'" >> Makefile
+	echo -e '\t@rm -f $(OBJ)' >> Makefile
+	echo -e '\t@rm -f *~' >> Makefile
+	echo -e '\t@rm -f *.c~' >> Makefile
+	echo -e '\t@rm -f *.vgcore' >> Makefile
+	echo -e '\t@rm -f *.gcno\n' >> Makefile
+    echo -e "\t@printf '\033[0;36m'" >> Makefile
+	echo -e '\t@echo "Files correctly cleaned !"\n' >> Makefile
+}
+
+function fclean_rule()
+{
+	echo -e "fclean:\tclean" >> Makefile
+	echo -e '\t@rm -f $(NAME)\n' >> Makefile
+}
+
+function re_rule()
+{
+	echo -e "re:\tfclean all\n" >> Makefile
+}
+
+function archive_rule()
+{
+	if [ ! -d $1 ]
+	then
+		mkdir $1
+	fi
+	echo -e "archive:" >> Makefile
+    echo -e "\t@printf '\033[0;32m'" >> Makefile
+	echo -e '\t@echo "                                                                               "' >> Makefile
+	echo -e '\t@echo "                                                                               "' >> Makefile
+	echo -e '\t@echo "           _____   _____ _    _ _______      _______ _   _  _____              "' >> Makefile
+	echo -e '\t@echo "     /\   |  __ \ / ____| |  | |_   _\ \    / /_   _| \ | |/ ____|             "' >> Makefile
+	echo -e '\t@echo "    /  \  | |__) | |    | |__| | | |  \ \  / /  | | |  \| | |  __              "' >> Makefile
+	echo -e '\t@echo "   / /\ \ |  _  /| |    |  __  | | |   \ \/ /   | | | .   | | |_ |             "' >> Makefile
+	echo -e '\t@echo "  / ____ \| | \ \| |____| |  | |_| |_   \  /   _| |_| |\  | |__| |  _   _   _  "' >> Makefile
+	echo -e '\t@echo " /_/    \_\_|  \_\\______|_|  |_|_____|   \/   |_____|_| \_|\_____| (_) (_) (_)"' >> Makefile
+	echo -e '\t@echo "                                                                               "' >> Makefile
+	echo -e "\t@sleep 2" >> Makefile
+	echo -e "\t@printf '\033[8m'" >> Makefile
+	echo -e '\t@$(ZIP) $(ZIPFLAGS) $(BCK_DIR)$(NAME)-backup-$(VERSION).$(ZIP) $(SRC)' >> Makefile
+    echo -e "\t@printf '\033[0;36m'" >> Makefile
+	echo -e '\t@echo $(NAME)-backup-$(VERSION).$(ZIP) file generated.' >> Makefile
+	echo -e '\t@mv -f .version .old_version' >> Makefile
+	echo -e "\t@awk '(NR==1){\$\$1++;}1' .old_version >.version\n" >> Makefile
+}
+
+function revert_rule()
+{
+	echo -e "revert:\t" >> Makefile
+    echo -e "\t@printf '\033[0;34m'" >> Makefile
+	echo -e '\t@echo "                                                                                 "' >> Makefile
+	echo -e '\t@echo "                                                                                 "' >> Makefile
+	echo -e '\t@echo "  _____  ______ _____ ______      ________ _____  _____ _   _  _____             "' >> Makefile
+	echo -e '\t@echo " |  __ \|  ____/ ____/ __ \ \    / /  ____|  __ \|_   _| \ | |/ ____|            "' >> Makefile
+	echo -e '\t@echo " | |__) | |__ | |   | |  | \ \  / /| |__  | |__) | | | |  \| | |  __             "' >> Makefile
+	echo -e '\t@echo " |  _  /|  __|| |   | |  | |\ \/ / |  __| |  _  /  | | | .   | | |_ |            "' >> Makefile
+	echo -e '\t@echo " | | \ \| |___| |___| |__| | \  /  | |____| | \ \ _| |_| |\  | |__| |  _   _   _ "' >> Makefile
+	echo -e '\t@echo " |_|  \_\______\_____\____/   \/   |______|_|  \_\_____|_| \_|\_____| (_) (_) (_)"' >> Makefile
+	echo -e '\t@echo "                                                                                 "' >> Makefile
+	echo -e '\t@echo "                                                                                 "' >> Makefile
+	echo -e '\t@sleep 2' >> Makefile
+	echo -e "\t@printf '\033[8m'" >> Makefile
+	echo -e '\t@$(UNZIP) $(UNZIPFLAGS) $(BCK_DIR)$(NAME)-backup-$(VERSION).$(ZIP)' >> Makefile
+	echo -e "\t@mv -f .old_version .version" >> Makefile
+	echo -e "\t@awk '(NR==1){\$\$1--;}1' .version >.old_version\n" >> Makefile
+    echo -e "\t@printf '\033[0;36m'" >> Makefile
+	echo -e '\t@echo "$(NAME)-backup-$(VERSION).$(ZIP) file correctly recovered."\n' >> Makefile
+}
+
+function delete_rule()
+{
+	echo -e "delete:" >> Makefile
+    echo -e "\t@printf '\033[0;35m'" >> Makefile
+	echo -e '\t@echo "                                                                     "' >> Makefile
+	echo -e '\t@echo "                                                                     "' >> Makefile
+	echo -e '\t@echo "  _____  ______ _      ______ _______ _____ _   _  _____             "' >> Makefile
+	echo -e '\t@echo " |  __ \|  ____| |    |  ____|__   __|_   _| \ | |/ ____|            "' >> Makefile
+	echo -e '\t@echo " | |  | | |__  | |    | |__     | |    | | |  \| | |  __             "' >> Makefile
+	echo -e '\t@echo " | |  | |  __| | |    |  __|    | |    | | | .   | | |_ |            "' >> Makefile
+	echo -e '\t@echo " | |__| | |____| |____| |____   | |   _| |_| |\  | |__| |  _   _   _ "' >> Makefile
+	echo -e '\t@echo " |_____/|______|______|______|  |_|  |_____|_| \_|\_____| (_) (_) (_)"' >> Makefile
+	echo -e '\t@echo "                                                                     "' >> Makefile
+	echo -e '\t@echo "                                                                     "' >> Makefile
+	echo -e '\t@sleep 2' >> Makefile
+	echo -e "\t@printf '\033[8m'" >> Makefile
+	echo -e '\t@rm -f $(BCK_DIR)$(NAME)-backup-$(VERSION).$(ZIP)\n' >> Makefile
+    echo -e "\t@printf '\033[0;36m'" >> Makefile
+	echo -e '\t@echo "$(NAME)-backup-$(VERSION).$(ZIP) file correctly deleted."\n' >> Makefile
+}
+
+function num_rule()
+{
+	echo -e "num:" >> Makefile
+	echo -e '\tcat .version\n' >> Makefile
+}
+
+function phony()
+{
+	echo -e ".PHONY:\tall clean fclean re archive revert delete num" >> Makefile
+}
+#--------------------------------FLAG-SEEKING---------------------------------#
+
+if [ ! -z $2 ]
+then
+	exit 84
+fi
+if test -z $1
+then
+    exit 84
+else
+    conf=$1
+    if [ ! -f $conf ]
+    then
+        exit 84
+    fi
+    IFS=";"
+    i=0
+	k=0
+    while read line
+    do
+        flag=($line)
+        if [[ ${flag[0]} == "PROJECT_DIR" ]]
+		then
+			pdir=${flag[1]}
+		elif [[ ${flag[0]} == "SOURCES_DIR" ]]
+		then
+			sdir=${flag[1]}
+		elif [[ ${flag[0]} == "HEADERS_DIR" ]]
+		then
+			hdir=${flag[1]}
+		elif [[ ${flag[0]} == "LIBS_DIR" ]]
+		then
+			ldir=${flag[1]}
+		elif [[ ${flag[0]} == "EXEC" ]]
+		then
+			exe=${flag[1]}
+		elif [[ ${flag[0]} == "CC" ]]
+		then
+			compil=${flag[1]}
+		elif [[ ${flag[0]} == "CFLAGS" ]]
+		then
+			cfl=${flag[1]}
+		elif [[ ${flag[0]} == "LDFLAGS" ]]
+		then
+			ldfl=${flag[1]}
+		elif [[ ${flag[0]} == "LIBS_DIR" ]]
+		then
+			libd=${flag[1]}
+		elif [[ ${flag[0]} == "BCK_DIR" ]]
+		then
+			bdir=${flag[1]}
+		elif [[ ${flag[0]} == "ZIP" ]]
+		then
+			zp=${flag[1]}
+		elif [[ ${flag[0]} == "ZIPFLAGS" ]]
+		then
+			zpfl=${flag[1]}
+		elif [[ ${flag[0]} == "UNZIPFLAGS" ]]
+		then
+			nzpfl=${flag[1]}
+		elif [[ ${flag[0]} == "UNZIP" ]]
+		then
+			nzp=${flag[1]}
+		elif [[ ${flag[0]} == *c ]]
+		then
+			src[i]=${flag[0]}
+			((i++))
+		fi
+		((k++))
+    done < $conf
+#----------------------------------LAST-LINE----------------------------------#
+	last=($line)
+	if [[ ${last[0]} == "PROJECT_DIR" ]]
+	then
+		pdir=${last[1]}
+	elif [[ ${last[0]} == "SOURCES_DIR" ]]
+	then
+		sdir=${last[1]}
+	elif [[ ${last[0]} == "HEADERS_DIR" ]]
+	then
+		hdir=${last[1]}
+	elif [[ ${last[0]} == "LIBS_DIR" ]]
+	then
+		ldir=${last[1]}
+	elif [[ ${last[0]} == "EXEC" ]]
+	then
+		exe=${last[1]}
+	elif [[ ${last[0]} == "CC" ]]
+	then
+		compil=${last[1]}
+	elif [[ ${last[0]} == "CFLAGS" ]]
+	then
+		cfl=${last[1]}
+	elif [[ ${last[0]} == "LDFLAGS" ]]
+	then
+		ldfl=${last[1]}
+	elif [[ ${last[0]} == "LIBS_DIR" ]]
+	then
+		libd=${last[1]}
+	elif [[ ${last[0]} == "BCK_DIR" ]]
+	then
+		bdir=${last[1]}
+	elif [[ ${last[0]} == "ZIP" ]]
+	then
+		zp=${last[1]}
+	elif [[ ${last[0]} == "ZIPFLAGS" ]]
+	then
+		zpfl=${last[1]}
+	elif [[ ${last[0]} == "UNZIPFLAGS" ]]
+	then
+		nzpfl=${last[1]}
+	elif [[ ${last[0]} == "UNZIP" ]]
+	then
+		nzp=${last[1]}
+	elif [[ ${last[0]} == *c ]]
+	then
+		src[i]=${last[0]}
+		((i++))
+	fi
+#------------------------------MAKEFILE-WRITTING------------------------------#
+	is_void $pdir
+	header $pdir
+	version
+	src_dir $sdir
+	lb_dir $ldir
+	bk_dir $bdir
+	is_void $src
+	if [ ! -f $pdir/${src[0]} ]
+	then
+		exit 84
+	fi
+	src ${src[0]}
+	if [[ i > 0 ]]
+	then
+		for ((c=1; c < i; c++))
+		do
+			if [ ! -f $pdir/${src[c]} ]
+			then
+				exit 84
+			fi
+			echo -e '\t\t$(SRCDIR)'${src[c]}'\t\\\n' >> Makefile
+		done
+	fi
+	obj
+	t=0
+	if test -z $hdir && test -z $cfl
+	then
+		t=3
+	elif test -z $cfl
+	then
+		t=1
+	elif test -z $hdir
+	then
+		t=2
+	fi
+	c_flags $t $cfl $hdir
+	ld_flags $ldfl
+	name $exe
+	compil $compil
+	zip $zp
+	zipfl $zpfl
+	unzip $nzp
+	unzipfl $nzpfl
+	all
+	name_rule
+	clean_rule $ldir
+	fclean_rule $ldir
+	re_rule $ldir
+	archive_rule $pdir/$bdir
+	revert_rule $pdir $bdir $exe
+	delete_rule
+	num_rule
+	phony
+	echo -e "1" > $pdir/.version
+	echo -e "0" > $pdir/.old_version
+	mv Makefile $pdir/
+	clear
+    echo -e "                                                                                      "
+	echo -e "                                                                                      "
+	echo -e "          _    _ _______ ____  __  __          _  ________ ______ _____ _      ______ "
+	echo -e "     /\  | |  | |__   __/ __ \|  \/  |   /\   | |/ /  ____|  ____|_   _| |    |  ____|"
+	echo -e "    /  \ | |  | |  | | | |  | | \  / |  /  \  | ' /| |__  | |__    | | | |    | |__   "
+	echo -e "   / /\ \| |  | |  | | | |  | | |\/| | / /\ \ |  < |  __| |  __|   | | | |    |  __|  "
+	echo -e "  / ____ \ |__| |  | | | |__| | |  | |/ ____ \| . \| |____| |     _| |_| |____| |____ "
+	echo -e " /_/    \_\____/   |_| _\____/|_|__|_/_/    \_\_|\_\______|_|    |_____|______|______|"
+	echo -e "                                                                                      "
+	echo -e "  _                _    _ ______                                                      "
+	echo -e " | |              |  \/  |  ____|                                                     "
+	echo -e " | |__  _   _     | \  / | |__                                                        "
+	echo -e " | '_ \| | | |    | |\/| |  __|                                                       "
+	echo -e " | |_) | |_| |    | |  | | |____                                                      "
+	echo -e " |_.__/ \__, |    |_|  |_|______|                                                     "
+	echo -e "         __/ |                                                                        "
+	echo -e "        |___/                                                                         "
+	echo -e "                                                                                      "
+	echo -e "                                                                                      "
+fi
